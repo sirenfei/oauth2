@@ -1,0 +1,66 @@
+<!--
+  ~ Copyright (C) 2017 Baidu, Inc. All Rights Reserved.
+  -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Tonr JS Client Demo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript"
+	src="webjars/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="jso.js"></script>
+<script type="text/javascript" type="text/javascript">
+	$(document)
+			.ready(
+					function() {
+
+						// Add configuration for one or more providers.
+						jso_configure({
+							"sparklr" : {
+								client_id : "123456",
+								redirect_uri : "http://localhost:8889/client/demo.html",
+								authorization : "http://localhost:8888/oauth/authorize",
+							}
+						});
+
+						// Perform a data request
+						$
+								.oajax({
+									url : "http://localhost:8889/resource/hello2",
+									jso_provider : "sparklr", // Will match the config identifier
+									jso_scopes : [ "read" ], // List of scopes (OPTIONAL)
+									jso_allowia : true, // Allow user interaction (OPTIONAL, default: false) 
+									dataType : 'jsonp',
+									jsonpCallback: 'hello2',
+									success : function(data) {
+										console.log({
+											response : data
+										});
+										$('#message')
+												.text(JSON.stringify(data));
+									}
+								});
+
+						//jso_wipe();
+
+					});
+</script>
+
+</head>
+<body>
+
+	<div class="container">
+
+		<h1>Sparklr Client Authentication Sample</h1>
+		<p>Once you have authenticated and approved the access, some
+			JavaScript in this page will render a list of photos from Sparklr
+			below:</p>
+		<p id="message" />
+	</div>
+
+</body>
+</html>
